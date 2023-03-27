@@ -11,10 +11,12 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import page_objects.AddStudentPage;
 import page_objects.AllStudentsPage;
+import page_objects.Notifications;
 
 import java.time.Duration;
 
 import static constants.AllConstants.GenderConstants.MALE;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class StudentAppTest {
@@ -24,6 +26,7 @@ public class StudentAppTest {
     Faker dataFaker = new Faker();
     AllStudentsPage allStudentsPage;
     AddStudentPage addStudentPage;
+    Notifications notifications;
     private final String APP_URL = "http://app.acodemy.lv/";
 
     @BeforeMethod
@@ -35,6 +38,7 @@ public class StudentAppTest {
         driver.get(APP_URL);
         allStudentsPage = new AllStudentsPage(driver);
         addStudentPage = new AddStudentPage(driver);
+        notifications = new Notifications(driver);
     }
 
     @AfterMethod
@@ -43,26 +47,18 @@ public class StudentAppTest {
         driver.quit();
     }
 
-    @Test
+    @Test(description = "Add student and check successful message")
     public void openStudentApp() {
         allStudentsPage.waitAndClickOnAddStudentButton();
-        addStudentPage.waitAndSetValueForNameField();
+        String name = addStudentPage.waitAndSetValueForNameField();
         addStudentPage.waitAndSetValueForEmailField();
         addStudentPage.waitAndSetGender(MALE);
         addStudentPage.clickOnSubmitButton();
 
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.className("ant-notification-notice-message")));
-        WebElement notificationMessage = driver.findElement(
-                By.className("ant-notification-notice-message"));
-        WebElement notificationDescription = driver.findElement(
-                By.className("ant-notification-notice-description"));
+        assertEquals(notifications.getMessageFromNotification(), "Student successfully added");
+        assertEquals(notifications.getDescriptionFromNotification(), name + " was added to the system");
 
-        Assert.assertEquals(notificationMessage.getText(), "Student successfully added");
-//        Assert.assertEquals(notificationDescription.getText(), name + " was added to the system");
-
-        WebElement popUpCloseButton = driver.findElement(By.className("ant-notification-notice-close"));
-        popUpCloseButton.click();
-        assertTrue(driverWait.until(ExpectedConditions.invisibilityOf(popUpCloseButton)));
+        notifications.getPopUpCloseButton().click();
+        assertTrue(driverWait.until(ExpectedConditions.invisibilityOf(notifications.getPopUpCloseButton())));
     }
 }

@@ -36,9 +36,11 @@ public class AddStudentPage {
     @FindBy(how = How.XPATH, using = "//div[@class='ant-form-item-control-input-content']//button")
     WebElement submitButton;
 
-    public void waitAndSetValueForNameField() {
+    public String waitAndSetValueForNameField() {
         webDriverWait.until(ExpectedConditions.visibilityOf(nameField));
-        nameField.sendKeys(faker.name().firstName());
+        String name = faker.name().firstName();
+        nameField.sendKeys(name);
+        return name;
     }
 
     public void waitAndSetGender(String gender) {
