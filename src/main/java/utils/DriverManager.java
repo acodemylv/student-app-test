@@ -47,8 +47,8 @@ public class DriverManager {
 
     public static MutableCapabilities configureCapabilities() {
         MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", "oauth-nikita-839ac");
-        sauceOptions.setCapability("access_key", "91b032f7-1489-40cf-b55c-3bc4a3376d1c");
+        sauceOptions.setCapability("username", "");
+        sauceOptions.setCapability("access_key", "");
         sauceOptions.setCapability("name", testName);
         sauceOptions.setCapability("browserVersion", "latest");
         return sauceOptions;
