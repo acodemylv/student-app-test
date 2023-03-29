@@ -13,10 +13,10 @@ import java.time.Duration;
 
 public class Notifications {
 
-    private final WebDriver driver = DriverManager.getInstance();
     private final WebDriverWait webDriverWait;
 
     public Notifications() {
+        WebDriver driver = DriverManager.getInstance();
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }

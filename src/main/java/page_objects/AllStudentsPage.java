@@ -14,10 +14,10 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 public class AllStudentsPage {
 
-    private final WebDriver driver = DriverManager.getInstance();
     private final WebDriverWait webDriverWait;
 
     public AllStudentsPage() {
+        WebDriver driver = DriverManager.getInstance();
         this.webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         PageFactory.initElements(driver, this);
     }
