@@ -9,17 +9,17 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.DriverManager;
 
 import java.time.Duration;
 
 public class AddStudentPage {
 
-    private WebDriver driver;
-    private WebDriverWait webDriverWait;
+    private final WebDriver driver = DriverManager.getInstance();
+    private final WebDriverWait webDriverWait;
     private final Faker faker = new Faker();
 
-    public AddStudentPage(WebDriver driver) {
-        this.driver = driver;
+    public AddStudentPage() {
         this.webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         PageFactory.initElements(driver, this);
     }
@@ -36,9 +36,8 @@ public class AddStudentPage {
     @FindBy(how = How.XPATH, using = "//div[@class='ant-form-item-control-input-content']//button")
     WebElement submitButton;
 
-    public String waitAndSetValueForNameField() {
+    public String waitAndSetValueForNameField(String name) {
         webDriverWait.until(ExpectedConditions.visibilityOf(nameField));
-        String name = faker.name().firstName();
         nameField.sendKeys(name);
         return name;
     }
@@ -55,10 +54,7 @@ public class AddStudentPage {
     }
 
     public void clickOnSubmitButton() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(submitButton));
         submitButton.click();
     }
-
-
-
-
 }
