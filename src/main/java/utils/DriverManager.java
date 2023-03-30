@@ -1,11 +1,13 @@
 package utils;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestResult;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,10 +31,15 @@ public class DriverManager {
         return driverThreadLocal.get();
     }
 
+    public static void closeDriver() {
+        driverThreadLocal.get().close();
+        driverThreadLocal.remove();
+    }
+
     private static RemoteWebDriver configureRemote() {
         URL url = null;
         try {
-            url = new URL("https://oauth-nikita-839ac:91b032f7-1489-40cf-b55c-3bc4a3376d1c@ondemand.us-west-1.saucelabs.com:443/wd/hub");
+            url = new URL("url");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -58,5 +65,10 @@ public class DriverManager {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("sauce:options", configureCapabilities());
         return options;
+    }
+
+    public static void markRemoteTest(ITestResult result) {
+        String status = result.isSuccess() ? "passed" : "failed";
+        ((JavascriptExecutor) getInstance()).executeScript("sauce:job-result=" + status);
     }
 }
