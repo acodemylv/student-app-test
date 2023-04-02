@@ -52,7 +52,7 @@ public class DriverManager {
         return new ChromeDriver(options);
     }
 
-    public static MutableCapabilities configureCapabilities() {
+    private static MutableCapabilities configureCapabilities() {
         MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("username", "");
         sauceOptions.setCapability("access_key", "");
@@ -61,7 +61,7 @@ public class DriverManager {
         return sauceOptions;
     }
 
-    public static Capabilities configureOptions() {
+    private static Capabilities configureOptions() {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("sauce:options", configureCapabilities());
         return options;

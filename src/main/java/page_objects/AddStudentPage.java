@@ -1,6 +1,5 @@
 package page_objects;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,16 +23,16 @@ public class AddStudentPage {
     }
 
     @FindBy(how = How.ID, using = "name")
-    WebElement nameField;
+    private WebElement nameField;
 
     @FindBy(how = How.ID, using = "gender")
-    WebElement genderDropDown;
+    private WebElement genderDropDown;
 
     @FindBy(how = How.ID, using = "email")
-    WebElement emailField;
+    private WebElement emailField;
 
     @FindBy(how = How.XPATH, using = "//div[@class='ant-form-item-control-input-content']//button")
-    WebElement submitButton;
+    private WebElement submitButton;
 
     public void waitAndSetValueForNameField(String name) {
         webDriverWait.until(ExpectedConditions.visibilityOf(nameField));
