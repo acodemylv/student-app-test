@@ -13,6 +13,8 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 import static constants.AllConstants.GenderConstants.MALE;
+import static constants.AllConstants.Messages.STUDENT_SUCCESSFULLY_ADDED;
+import static constants.AllConstants.Messages.WAS_ADDED_TO_THE_SYSTEM;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static utils.ConfigHelper.getConfig;
@@ -47,13 +49,14 @@ public class StudentAppTest {
         allStudentsPage.waitAndClickOnAddStudentButton();
 
         String name = dataFaker.name().firstName();
+        String email = dataFaker.internet().emailAddress();
         addStudentPage.waitAndSetValueForNameField(name);
-        addStudentPage.waitAndSetValueForEmailField();
+        addStudentPage.waitAndSetValueForEmailField(email);
         addStudentPage.waitAndSetGender(MALE);
         addStudentPage.clickOnSubmitButton();
 
-        assertEquals(notifications.getMessageFromNotification(), "Student successfully added");
-        assertEquals(notifications.getDescriptionFromNotification(), name + " was added to the system");
+        assertEquals(notifications.getMessageFromNotification(), STUDENT_SUCCESSFULLY_ADDED);
+        assertEquals(notifications.getDescriptionFromNotification(), String.format(WAS_ADDED_TO_THE_SYSTEM, name));
 
         notifications.getPopUpCloseButton().click();
         assertTrue(driverWait.until(ExpectedConditions.invisibilityOf(notifications.getPopUpCloseButton())));

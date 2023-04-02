@@ -17,7 +17,6 @@ public class AddStudentPage {
 
     private final WebDriver driver = DriverManager.getInstance();
     private final WebDriverWait webDriverWait;
-    private final Faker faker = new Faker();
 
     public AddStudentPage() {
         this.webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -47,9 +46,9 @@ public class AddStudentPage {
         driver.findElement(By.xpath("//div[@title='" + gender.toUpperCase() + "']")).click();
     }
 
-    public void waitAndSetValueForEmailField() {
+    public void waitAndSetValueForEmailField(String email) {
         webDriverWait.until(ExpectedConditions.visibilityOf(emailField));
-        emailField.sendKeys(faker.internet().emailAddress());
+        emailField.sendKeys(email);
     }
 
     public void clickOnSubmitButton() {
