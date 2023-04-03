@@ -22,18 +22,17 @@ public class Notifications {
     }
 
     @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-message")
-    WebElement notificationMessageElement;
+    private WebElement notificationMessageElement;
 
     @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-description")
-    WebElement notificationDescriptionElement;
+    private WebElement notificationDescriptionElement;
 
     @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-close")
-    WebElement popUpCloseButton;
+    private WebElement popUpCloseButton;
 
     public WebElement getPopUpCloseButton() {
         return popUpCloseButton;
     }
-
 
     public String getMessageFromNotification() {
         webDriverWait.until(ExpectedConditions.visibilityOf(notificationMessageElement));

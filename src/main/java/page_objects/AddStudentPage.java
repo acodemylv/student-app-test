@@ -1,6 +1,5 @@
 package page_objects;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +16,6 @@ public class AddStudentPage {
 
     private final WebDriver driver = DriverManager.getInstance();
     private final WebDriverWait webDriverWait;
-    private final Faker faker = new Faker();
 
     public AddStudentPage() {
         this.webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -25,16 +23,16 @@ public class AddStudentPage {
     }
 
     @FindBy(how = How.ID, using = "name")
-    WebElement nameField;
+    private WebElement nameField;
 
     @FindBy(how = How.ID, using = "gender")
-    WebElement genderDropDown;
+    private WebElement genderDropDown;
 
     @FindBy(how = How.ID, using = "email")
-    WebElement emailField;
+    private WebElement emailField;
 
     @FindBy(how = How.XPATH, using = "//div[@class='ant-form-item-control-input-content']//button")
-    WebElement submitButton;
+    private WebElement submitButton;
 
     public void waitAndSetValueForNameField(String name) {
         webDriverWait.until(ExpectedConditions.visibilityOf(nameField));
@@ -47,9 +45,9 @@ public class AddStudentPage {
         driver.findElement(By.xpath("//div[@title='" + gender.toUpperCase() + "']")).click();
     }
 
-    public void waitAndSetValueForEmailField() {
+    public void waitAndSetValueForEmailField(String email) {
         webDriverWait.until(ExpectedConditions.visibilityOf(emailField));
-        emailField.sendKeys(faker.internet().emailAddress());
+        emailField.sendKeys(email);
     }
 
     public void clickOnSubmitButton() {

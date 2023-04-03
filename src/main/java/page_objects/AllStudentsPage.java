@@ -23,10 +23,14 @@ public class AllStudentsPage {
     }
 
     @FindBy(how = How.XPATH, using = "//div[@class='ant-table-title']//button")
-    public WebElement addStudentButton;
+    private WebElement addStudentButton;
 
     public void waitAndClickOnAddStudentButton() {
         webDriverWait.until(elementToBeClickable(addStudentButton));
         addStudentButton.click();
+    }
+
+    public WebElement getAddStudentButton() {
+        return addStudentButton;
     }
 }
