@@ -13,7 +13,7 @@ public class ConfigHelper {
         try {
             return configurations.properties(new File("configuration.properties"));
         } catch (ConfigurationException e) {
-            throw new RuntimeException("Cannot find configuration.properties file " + e.getMessage());
+            throw new RuntimeException("Cannot find configuration.properties file! " + e.getMessage());
         }
     }
 }
