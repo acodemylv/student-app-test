@@ -6,7 +6,7 @@ import static utils.DriverManager.closeDriver;
 
 public class Hooks {
 
-    @After
+    @After()
     public void afterTest() {
         closeDriver();
     }

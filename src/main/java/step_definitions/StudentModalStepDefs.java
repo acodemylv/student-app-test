@@ -1,23 +1,29 @@
 package step_definitions;
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import page_objects.AddStudentPage;
 
 public class StudentModalStepDefs {
-    @Given("user enters {string} in name field")
-    public void user_enters_in_name_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
+
+    private final AddStudentPage addStudentPage = new AddStudentPage();
+    private final Faker faker = new Faker();
+
+    @Given("user enters name in name field")
+    public void userEntersNameInNameField() {
+        addStudentPage.waitAndSetValueForNameField(faker.name().firstName());
     }
-    @Given("user enters {string} in e-mail field")
-    public void user_enters_in_e_mail_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    @Given("user enters email in e-mail field")
+    public void userEnterEmailInEmailField() {
+        addStudentPage.waitAndSetValueForEmailField(faker.internet().emailAddress());
     }
     @Given("user enters {string} in gender field")
-    public void user_enters_in_gender_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    public void userEntersGenderField(String gender) {
+       addStudentPage.waitAndSetGender(gender);
     }
     @When("user click on submit button")
-    public void user_click_on_submit_button() {
-        // Write code here that turns the phrase above into concrete actions
+    public void userClickOnSubmitButton() {
+        addStudentPage.clickOnSubmitButton();
     }
 }
